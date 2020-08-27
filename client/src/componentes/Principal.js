@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import 'materialize-css/dist/css/materialize.min.css';
+
 import '../App.css';
 
 //componentes
@@ -9,7 +9,7 @@ import ListarTuto from './ListarTuto';
 
 class Principal extends Component{
 
-
+//array de tutoriales para cargar los datos
     state = {
 
         tutoriales: [],
@@ -21,7 +21,7 @@ class Principal extends Component{
       componentDidMount(){
         this.apiTuto()
       }
-    
+    //obtiene los datos de los tutoriales 
       apiTuto = async () => {
     
         try {
@@ -39,36 +39,25 @@ class Principal extends Component{
       }
     
     
-    
       render(){
        
         const{tutorialesFiltro} = this.state;
 
-
-       
-    
             return(
-               
-           
+                        
                <div className="App fondoContainer">
       
                    <div className="container fondoContainer">
     
-                  <ListarTuto listaComponentes={tutorialesFiltro} table={"Lista de Tutoriales" }/>
+                  <ListarTuto listaComponentes={tutorialesFiltro} table={<h1>Lista de Tutoriales</h1>}/>
     
               </div>
     
             </div>
-            )
-                    
-            }
-
-
-
-
-
-
-
-}
+           
+           )
+        
+        }
+    }
 
 export default Principal;

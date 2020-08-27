@@ -1,200 +1,145 @@
-import React, {Component} from 'react';
-
-import "materialize-css/dist/css/materialize.min.css"
-
+import React, { Component } from 'react';
+import M from "materialize-css";
+import 'materialize-css/dist/css/materialize.min.css';
 
 //import EditTuto from './editTuto';
 class ListarTuto extends Component {
 
-state = {
 
-  id: 0,
-  estado: false
-
-}
-
-
-mostrarDatos = (id) => {
-      
-  const getId = id
-  this.setState({id:getId, estado: true})
-
-  
+ 
+  //inicia los JS de materialize
+  componentDidMount() {
+    M.AutoInit();
   }
 
+ 
 
-  render(){  
-    
-    const {listaComponentes, table} = this.props;
-    
+  render() {
+
+    const { listaComponentes, table } = this.props;
+
+    //obtine los datos de las materias realizando un mapeo
     const datosComponentes = listaComponentes.map(
-            
-      e=>(
-               <tr key={e.id}>      
-                    <td onClick={() => this.mostrarDatos(e.id)}>{e.titulo} </td>
-                    
-                 </tr>
-            )
+
+      e => (
+        <tr key={e.id}>
+          <td >{e.titulo} </td>
+          <td >{e.descripcion} </td>
+          <td >{e.publicado ? <p>Publicado</p> : <p> Pendiente</p>} </td>
+          <td> <button class="btn waves-effect waves-light blue" href="#act">Actualizar</button></td>
+          <td> <button class="btn waves-effect waves-light red" onClick={()=>this.borrar(e.id)}>Eliminar</button></td>
+          <td> </td>
+        </tr>
       )
-
-      var tutorialesArray = {titulo: "", descripcion: "", publicado: ""}
-     
-    
-     listaComponentes.find(e =>{
-      if(e.id === (this.state.id))
-      tutorialesArray.titulo = e.titulo
-     })
-
-     listaComponentes.find(e =>{
-      if(e.id === (this.state.id))
-      tutorialesArray.descripcion = e.descripcion
-     })
-
-     listaComponentes.find(e =>{
-      if(e.id === (this.state.id))
-      tutorialesArray.descripcion = e.descripcion
-     })
-
-     console.log(tutorialesArray)
-     
-  
-    return(
-     
-      <div> 
-
-      <form className="col s12" >   
-          <div class="row card-panel">
-            <label for="titulo">Tutorial</label>
-            <input type="text" 
-             placeholder="Ingrese un Tutorial a buscar" 
-             id="titulo" 
-             //class="validate" 
-             required
-             /> 
-
-             <div className="section">
+    )
 
 
-             <button class="btn-large red btn-success" type="submit">
-                 <i class="material-icons left">search</i>Buscar</button>
-             </div>
-            
-           </div>
-          </form>
- 
- 
- 
- 
-  <div className="row">
+    return (
 
+      <div>
 
-   <div className="col s6"> 
-      <table class="highlight">
-      <caption  className="captionStyle">{table}</caption>
-         <thead>
-           <tr>
-               <th>Titulo</th>
+        {/*----------------------ROWS-----------------*/}
+
+        <div className="row">
+
+          <div className="col s12">
+            <table class="highlight">
+              <caption className="captionStyle">{table}</caption>
+              <thead>
+                <tr>
+                  <th>Titulo</th>
+                  <th>Descripcion</th>
+                  <th>Estado</th>
+                  <th>Actualizar</th>
+                  <th>Eliminar</th>
+                </tr>
                
-           </tr>
-         </thead>
-     <tbody>
-         {datosComponentes}
-    </tbody>
-       </table>
+              </thead>
+              {/*------Se pasa en el tbody los titulos de los tutoriales----*/}
+              <tbody>
+                {datosComponentes}
+              
+              </tbody>
+            </table>
+          </div>
 
-       </div>
-
-   {this.state.estado ? (
-   <div className="col s6"> 
-       
-       <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-         
-          <span class="card-title">Detalles</span>
-          <p>Titulo: {tutorialesArray.titulo}</p>
-          <p>Descripcion: {tutorialesArray.descripcion}</p>
-          <p>Estado: {tutorialesArray.publicado ? <p>Publicado</p> : <p> Pendiente</p>}</p>
-          <p>ID: {this.state.id}</p>
-
-           {/*<EditTuto listaComponentes={listaComponentes}>*/}
-
-           
-
-           <button className="btn" onClick={()=>this.borrar(this.state.id)}>Borrar</button>
-           <button className="btn red" onClick={()=>this.actualizar(tutorialesArray.titulo,tutorialesArray.descripcion, this.state.id)}>Actualizar</button>
-       
           
+          {/**CIERRE DEL ROW */}
         </div>
-       
+ 
+
+        <div id="act" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+
+
       </div>
-       
+      /**CIERRE DEL DIV PADRE */
 
-     </div>) : (
-       <h1>Haga Click en cualquier Tutorial</h1>
-     )}
-      
-   </div>
-
- </div>
-
-     )
+    )
 
   }
 
 
-    borrar = async (id) =>  {
-      
-    
-      var mensaje =  window.confirm("¿Desea eliminar este item "+id+ " ?");
-      
-         if (mensaje) {
-         const borrado = await fetch (`http://localhost:3001/api/tutoriales/${id}`, {
-         method: "DELETE"
-         })
-  
-          alert("ITEM ELIMINADO"+ borrado.titulo)
-  
-          //this.setState({ })
-  
-         }
-     
-         else {
-         alert("¡Haz denegado el mensaje!");
-         }
-  
-      
-      }
+  borrar = async (id) => {
+
+
+    var mensaje = window.confirm("¿Desea actualizar este item " + id + " ?");
+
+    if (mensaje) {
+      const borrado = await fetch(`http://localhost:3001/api/tutoriales/${id}`, {
+        method: "DELETE"
+      })
+
+      alert("ITEM ELIMINADO" + borrado.titulo)
+
+    }
+
+    else {
+      alert("¡Haz denegado el mensaje!");
+    }
+
+
+  }
 
 
 
-      actualizar = async (titulo,descripcion,id) =>  {
-    
-    
-     var update = prompt(titulo," ");
-     var update2 = prompt(descripcion," ");
-     
+  actualizar = async (id) => {
 
-    if (update != null && update2 != null ){
-     
-     
-    const upd = {update,update2}
-    
-    const response = await fetch(`http://localhost:3001/api/tutoriales/${id}`, 
-    {method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(upd)
-    }  
-    );
-    // const values = JSON.stringify(this.state)
-    //console.log(response)
-    alert("Tutorial agregado"+ response)
-       }
-        //Detectamos si el usuario NO ingreso un valor
-     else {
-          alert("Error");
+
+    var mensaje = window.confirm("¿Desea eliminar este item " + id + " ?");
+
+
+
+    if (mensaje != null) {
+
+
+
+
+      const response = await fetch(`http://localhost:3001/api/tutoriales/${id}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(mensaje)
         }
-        
-        }
+      );
+      // const values = JSON.stringify(this.state)
+      //console.log(response)
+      alert("Tutorial actualizado" + response)
+    }
+    //Detectamos si el usuario NO ingreso un valor
+    else {
+      alert("Error");
+    }
+
+  }
 
 
 
