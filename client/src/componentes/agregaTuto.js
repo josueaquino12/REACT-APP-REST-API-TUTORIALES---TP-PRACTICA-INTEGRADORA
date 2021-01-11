@@ -10,19 +10,27 @@ class AgregaTuto extends Component{
         super(props)
         this.state = {
          
+          data:{
           titulo: '',
           descripcion: '',
           publicado: false
+        },
         
+        reset:{
+          titulo: '',
+          descripcion: '',
+          publicado: false
+        }
      
       }
     }
 
 
       handleChange = (e) => {
-        const { name, value } = e.target
-        this.setState({...this.state.value,
-          [name]: value})
+        this.setState({  data: {
+          ...this.state.data,
+          [e.target.name]: e.target.value,
+        }, })
       }
       
  handleSubmit = async (e) => {
@@ -30,8 +38,8 @@ class AgregaTuto extends Component{
 
      try {
 
-    const body = this.state;
-    const response = await fetch("http://localhost:3001/api/tutoriales", 
+    const body = this.state.data;
+     await fetch("http://localhost:3001/api/tutoriales", 
     {method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(body)
@@ -39,7 +47,11 @@ class AgregaTuto extends Component{
     );
     // const values = JSON.stringify(this.state)
     //console.log(response)
-    alert("Tutorial agregado"+ response)
+    
+    this.setState({data: this.state.reset})
+
+    alert("Tutorial agregado: "+ body.titulo)
+
        
      } catch (error) {
 
@@ -53,7 +65,7 @@ class AgregaTuto extends Component{
 
 render(){
 
-    const {titulo,descripcion} =this.state
+    //const {titulo,descripcion} =this.state
     return(
 
           <div className="container">
@@ -66,7 +78,7 @@ render(){
                     placeholder="Ingrese Titulo" 
                     id="titulo"
                     name="titulo"
-                    value={titulo}
+                    value={this.state.data.titulo}
                     onChange={this.handleChange}
                     //className="validate" 
                     required
@@ -79,7 +91,7 @@ render(){
                     placeholder="Ingrese descripcion" 
                     id="descripcion" 
                     name="descripcion"
-                    value={descripcion}
+                    value={this.state.data.descripcion}
                     //class="validate" 
                     onChange={this.handleChange}
                     required
@@ -91,23 +103,11 @@ render(){
                     <button className="btn-large red btn-success" type="submit">
                         Agregar</button>
                     </div>
-                   
-
-
-
-                    </div>
-                 </form>
-
-
-
-                 
+                   </div>
+                 </form>              
           {/*<h2>Values of the form</h2>
             <p>{JSON.stringify(this.state)}</p>*/}
-       
-
-
-
-                </div>
+          </div>
 
     )
 

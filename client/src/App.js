@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import './App.css';
-
+import logoUnpaz from './img/logoUnpaz.jpg'
 //componentes
 
 import Principal from './componentes/Principal';
@@ -31,7 +31,7 @@ class App extends Component {
           <div class="nav-wrapper">
 
             
-            <nav>
+            <nav class="blue">
      
               <ul>
 
@@ -55,7 +55,32 @@ class App extends Component {
               
               
             <Route path="/" exact>
-              <h1 class="tituloTable">BIENVENIDOS A API TUTORIALES</h1>
+          <h1 class="tituloTable center-align">BIENVENIDOS A API TUTORIALES</h1>
+            
+            
+            <div className="container">
+            <div class="card">
+           
+            <div class="card-content">
+            <h1 className="center-align">Trabajo de Practica Integradora 2020</h1>
+           </div>
+          <div class="card-tabs">
+         <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a href="#test4">Profesor</a></li>
+        <li class="tab"><a class="active" href="#test5">Alumno</a></li>
+        <li class="tab"><a href="#test6">Año</a></li>
+         </ul>
+        </div>
+       <div class="card-content grey lighten-4">
+        <div id="test4">Gerardo Gonzalez</div>
+         <div id="test5">Josué Aquino</div>
+         <div id="test6">2020</div>
+        </div>
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src={logoUnpaz}/>
+             </div>
+        </div>
+        </div>
               </Route>
               
 

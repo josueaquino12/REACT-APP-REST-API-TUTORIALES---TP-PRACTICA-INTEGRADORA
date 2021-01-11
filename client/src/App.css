@@ -25,9 +25,7 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+
 
 @keyframes App-logo-spin {
   from {
@@ -42,13 +40,9 @@ background-color:blue;
 color: yellow;
 }
 
-.fondoContainer{
 
-  background-image: url(/img/double-bubble.png);
-  background-size: cover;
-}
 
 body{
 
-  background-image: url(/img/double-bubble.png);
+  background-color: #bbdefb;
 }
