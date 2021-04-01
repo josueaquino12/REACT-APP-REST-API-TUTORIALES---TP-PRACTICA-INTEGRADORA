@@ -14,14 +14,9 @@ import{
   Link
   } from "react-router-dom";
 
-
-
 //tutorial.publicado ? 'Publicado' : 'Pendiente' condición ? true : false
 
 class App extends Component {
-
- 
-  
 
   render(){
 
@@ -29,12 +24,8 @@ class App extends Component {
            
           <Router>
           <div class="nav-wrapper">
-
-            
             <nav class="blue">
-     
               <ul>
-
               <li>
                   <Link to="/">Inicio</Link>
                 </li>

@@ -102,7 +102,7 @@ class ListarTuto extends Component {
           <div className="col s12">
             <h1>Lista de Tutoriales</h1>
 
-            <form>
+          <form>
            <div class="input-field">
             <input id="search" type="search"
             placeholder="Buscar"
