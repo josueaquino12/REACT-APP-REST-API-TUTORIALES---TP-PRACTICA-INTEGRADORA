@@ -4,7 +4,7 @@ const bodyparser = require( 'body-parser');
 const cors = require("cors");
 
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
 //middleware
 app.use(bodyparser.urlencoded({ extended: false}));
