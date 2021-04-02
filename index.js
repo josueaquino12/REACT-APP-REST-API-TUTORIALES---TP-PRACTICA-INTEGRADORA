@@ -13,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 //rutas
+app.get("/", (req, res) => {
+    res.render("index", { titulo: "inicio EJS" });
+  });
+  
 app.use(require('./routes/router'));
 
 
