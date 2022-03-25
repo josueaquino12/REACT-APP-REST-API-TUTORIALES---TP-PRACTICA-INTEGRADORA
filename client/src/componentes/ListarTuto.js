@@ -259,7 +259,7 @@ class ListarTuto extends Component {
 
     var mensaje = window.confirm("¿Desea actualizar este item " + dato.titulo + " ?");
 
-     if (mensaje != null) {
+     if (mensaje) {
 
       await fetch(`http://localhost:3001/api/tutoriales/${dato.id}`,
         {

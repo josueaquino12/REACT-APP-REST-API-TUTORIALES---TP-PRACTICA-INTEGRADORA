@@ -4,7 +4,7 @@ const bodyparser = require( 'body-parser');
 const cors = require("cors");
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 //middleware
 app.use(bodyparser.urlencoded({ extended: false}));
@@ -12,11 +12,7 @@ app.use(bodyparser.json());
 app.use(cors());
 app.use(express.json());
 
-//rutas
-app.get("/", (req, res) => {
-    res.render("index", { titulo: "inicio EJS" });
-  });
-  
+//rutas  
 app.use(require('./routes/router'));
 
 
